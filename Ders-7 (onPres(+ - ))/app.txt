@@ -1,0 +1,69 @@
+const [sayi, setSayi] = useState(0)
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.textStyles}>Header!</Text>
+      </View>
+
+      <View style={styles.main}>
+        <Text style={styles.textStyles}>Main!</Text>
+
+        <TouchableOpacity
+          onPress={() => {
+            setSayi(sayi + 1)
+          }}
+          style={{
+            borderRadius: 10,
+            backgroundColor: '#f0f',
+            padding: 5,
+            width: 50,
+            height: 50,
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: 5
+          }}>
+          <Text>+</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.textStyles}>{sayi}</Text>
+
+        <TouchableOpacity
+          onPress={() => {
+            setSayi(sayi - 1)
+          }}
+          style={{
+            borderRadius: 10,
+            backgroundColor: '#0f0',
+            padding: 5,
+            width: 50,
+            height: 50,
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: 5
+          }}>
+          <Text>-</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.textStyles}>Random Sayı : {randomsayi}! = {faktoriyel(randomsayi)}</Text>
+        <Text style={styles.textStyles}>Random Sayı : {randomsayi} = {randomsayi % 2 == 0 ? "Çift Sayıdır" : "Tek Sayıdır"} </Text>
+        {numList.map((num, index) => {
+          <Text style={styles.textStyles} key={index}>
+            {num}
+          </Text>
+        })}
+
+        <TextInput value={sayi} style={{ borderColor: '#00f', borderWidth: 1 }} />
+      </View>
+
+      <View style={styles.footer}>
+        <Text style={styles.textStyles}>Footer!</Text>
+
+        {todoList.map(todo => {
+          <Text>"title: " + {todo.title} + " Compalate: " + {todo.complate}</Text>
+        })}
+      </View>
+
+      <StatusBar style="auto" />
+    </View>
+  );

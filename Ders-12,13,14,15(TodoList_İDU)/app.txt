@@ -1,0 +1,133 @@
+import React, { useState } from 'react';
+
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, TextInput, Alert, ActivityIndicator, } from 'react-native';
+import { styles } from './style'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
+const App = () => {
+  
+let initialArr = [
+  {
+    
+    complate:false,
+    text: "text1",
+  },
+  {
+    
+    complate:true,
+    text: "text2",
+  },
+  {
+    
+    complate:false,
+    text: "text3",
+  },
+  {
+    
+    complate:true,
+    text: "text44",
+  },
+  {
+    
+    complate:false,
+    text: "text5",
+  },
+  {
+    
+    complate:true,
+    text: "text6",
+  },
+];
+
+  const [todoTitle, setTodoTitle] = useState("")  
+  const [todoList, setTodoList] = useState(initialArr)
+
+  const addTodo = () => {
+    let data={complate:false,text:todoTitle};
+    let newList=todoList;
+    newList.push(data);
+    setTodoList(newList)
+    setTodoTitle(" ");
+  }
+  const update = (index,todo) => {
+    let newList=[];
+    todoList.forEach((item,i) => {
+      i==index
+      ?newList.push({text:item.text,complate:!item.complate})
+      :newList.push(item);
+    });
+
+    setTodoList(newList)
+    setTodoTitle(" ");
+  }
+  const deleteTodo = (index,todo) => {
+    let newList=[];
+    todoList.forEach((item,i) => {
+      if(i!=index){newList.push(item);}
+    });
+
+    setTodoList(newList)
+    setTodoTitle(" ");
+  }
+  //-------------------------------------------------------------
+
+  return (
+    <SafeAreaView style={{ flex: 1, alignItems: "center", justifyContent: "center", padding: 10 }}>
+      <View style={{marginBottom:-200,width:"100%",padding:10,flex:1,alignItems:"center",justifyContent:"center",marginTop:-200,}}>
+      <TextInput 
+      onChangeText={value=>setTodoTitle(value)}
+      value={todoTitle} 
+       style={{
+        width:"100%",borderColor:"#00f",
+        borderWidth:1,
+      }}/>
+      
+      </View>
+
+      <ScrollView style={{flex:3,width:"100%"}}>
+        {todoList.map((todo,index) => 
+
+          <TouchableOpacity onPress={()=>update(index,todo)} onLongPress={()=>deleteTodo(index,todo)} style={{
+            flexDirection:'row',
+            width:"90%",
+            height:60,
+            borderColor: todo.complate == false ?"#f00":"#0f0",
+            justifyContent:"space-between",
+            borderRadius:20,borderWidth:1,
+            margin:10,padding:10,
+            
+          }} key={index.toString()}>
+            <Text style={{textAlignVertical:'center',}}>{todo.text}</Text>
+            <Icon style={{textAlignVertical:'center',}}  name={todo.complate==false ?"checkbox-blank-outline":"checkbox-marked"}size={25}>
+            
+            </Icon>
+          </TouchableOpacity>
+        )}
+
+      </ScrollView>
+      
+
+      <TouchableOpacity onPress={()=>addTodo()}
+      
+      style={{
+        width:60,
+        height:60,
+        backgroundColor:"#f30",
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:30,
+        position:"absolute",
+        right:30,
+        bottom:30,
+        flex:1,
+      }}>
+        <Text style={{color:"#fff",fontSize:42,}}>+</Text>
+      </TouchableOpacity>
+      
+    </SafeAreaView>
+  )
+
+}
+
+export default App;
